@@ -1,0 +1,46 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+      "MySQSQueue": {
+        "Type": "AWS::SQS::Queue",
+        "Properties": {
+          "QueueName": "MySQS-Otuoma-Caroline-s2110913",
+          "VisibilityTimeout": 60
+        }
+      },
+      "MySQSQueuePolicy": {
+        "Type": "AWS::SQS::QueuePolicy",
+        "Properties": {
+          "Queues": [
+            {
+              "Ref": "MySQSQueue"
+            }
+          ],
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Id": "Policy1712668204220",
+            "Statement": [
+              {
+                "Sid": "Stmt1712668202105",
+                "Effect": "Allow",
+                "Principal": "*",
+                "Action": "sqs:SendMessage",
+                "Resource": {
+                  "Fn::GetAtt": [
+                    "MySQSQueue",
+                    "Arn"
+                  ]
+                },
+                "Condition": {
+                  "ArnEquals": {
+                    "aws:SourceArn": "arn:aws:s3:::mybucket-otuoma-caroline-s2110913"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+  

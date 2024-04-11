@@ -1,0 +1,35 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+       "EntryTable": {
+         "Type": "AWS::DynamoDB::Table",
+         "Properties": {
+           "TableName": "Entry-Otuoma-Caroline-s2110913",
+           "AttributeDefinitions": [
+             {
+               "AttributeName": "ImageName",
+               "AttributeType": "S"
+             },
+             {
+               "AttributeName": "Label",
+               "AttributeType": "S"
+             }
+           ],
+           "KeySchema": [
+             {
+               "AttributeName": "ImageName",
+               "KeyType": "HASH"
+             },
+             {
+               "AttributeName": "Label",
+               "KeyType": "RANGE"
+             }
+           ],
+           "ProvisionedThroughput": {
+             "ReadCapacityUnits": 5,
+             "WriteCapacityUnits": 5
+           }
+         }
+       }
+    }
+}
