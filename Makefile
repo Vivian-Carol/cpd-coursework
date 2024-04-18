@@ -40,8 +40,8 @@ create_second_lambda_function:
 	@echo "Initializing the Second Lambda Function..."
 	@python second_lambda_function_creation.py
 
-# First_deploy: create_ec2_instance create_s3_bucket create_sqs_stack create_entry_table_stack create_vehicle_table_stack #populate_vehicle_table
-# 	@echo "Resource Creation completed successfully."
+First_deploy: create_ec2_instance create_s3_bucket create_sqs_stack create_entry_table_stack create_vehicle_table_stack populate_vehicle_table
+	@echo "Resource Creation completed successfully."
 
-# Second_deploy: upload_images_to_ec2 upload_images_to_s3 create_lambda_function create_second_lambda_function
-# 	@echo "Uploading Images to EC2  Instance..."
+Second_deploy: upload_images_to_ec2 upload_images_to_s3 create_lambda_function create_second_lambda_function
+	@echo "Operation successfully!!"

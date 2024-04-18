@@ -41,7 +41,7 @@ def lambda_handler(event, context):
             if response['Count'] > 0:
                 vehicle = response['Items'][0]
                 
-                print(f'vehicle: {vehicle}')
+                print(f'vehicles: {vehicle}')
                 
                 if vehicle['status']['S'] == 'Blacklisted':
                     print('passed')

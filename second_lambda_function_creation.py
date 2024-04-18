@@ -58,15 +58,26 @@ def create_second_lambda_function(lambda_function_name, dynamodb_table_name):
             # Extract the stream ARN if the stream was already enabled
             dynamodb_stream_arn = table_description['Table']['LatestStreamArn']
 
-    # Configure the Lambda function to trigger from the DynamoDB table with specific settings
-    lambda_client.create_event_source_mapping(
-        EventSourceArn=dynamodb_stream_arn,
-        FunctionName=lambda_function_name,
-        Enabled=True,
-        BatchSize=100,
-        StartingPosition='LATEST'
-    )
-    print("Event source mapping created successfully.")
+    # Check if the event source mapping already exists
+    event_source_mappings = lambda_client.list_event_source_mappings(FunctionName=lambda_function_name)
+    mapping_exists = False
+    for mapping in event_source_mappings['EventSourceMappings']:
+        if mapping['EventSourceArn'] == dynamodb_stream_arn:
+            mapping_exists = True
+            break
+
+    if not mapping_exists:
+        # Configure the Lambda function to trigger from the DynamoDB table with specific settings
+        lambda_client.create_event_source_mapping(
+            EventSourceArn=dynamodb_stream_arn,
+            FunctionName=lambda_function_name,
+            Enabled=True,
+            BatchSize=100,
+            StartingPosition='LATEST'
+        )
+        print("Event source mapping created successfully.")
+    else:
+        print("Event source mapping already exists.")
 
 if __name__ == "__main__":
     lambda_function_name = 'MySecondLambdaFunction-Otuoma-Caroline-s2110913'
