@@ -20,8 +20,7 @@ def create_ec2_instance(instance_name):
         'TagSpecifications': [{
             'ResourceType': 'instance',
             'Tags': [{'Key': 'Name', 'Value': instance_name}]
-        }],
-        'SecurityGroupIds': ['sg-09def48e4220b0451']
+        }]
     }
 
     response = ec2_client.run_instances(**instance_params)
